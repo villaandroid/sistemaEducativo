@@ -1,0 +1,316 @@
+:root {
+    --header-color: #6c63ff;
+    --azul-color: #00b5e2;
+    --verde-color: #28a745;
+    --rosa-color: #ff4081;
+    --text-color-blanco: white;
+}
+
+body {
+    background-color: #f8f9fa;
+}
+
+
+html {
+    box-sizing: border-box;
+    font-size: 62.5%;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-size: 1.6rem;
+    line-height: 1.5;
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    background-color: var(--header-color);
+    color: var(--text-color-blanco);
+    padding: 15px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    display: flex;
+    margin-bottom: 2rem;
+}
+
+.cabecera {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.cabecera a {
+
+    text-decoration: none;
+}
+
+
+.cajas {
+    max-width: 70rem;
+}
+
+
+
+.card-custom {
+    width: 20rem;
+    height: 20rem;
+    color: var(--text-color-blanco);
+    font-weight: bold;
+    border-radius: 10px;
+}
+
+.cuerpo-tarjeta {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-terceros {
+    background-color: var(--azul-color);
+}
+
+.card-tabla1 {
+    background-color: var(--verde-color);
+}
+
+.card-tabla2 {
+    background-color: var(--rosa-color);
+}
+
+.card-tabla3 {
+    background-color: var(--verde-color);
+}
+
+.card-tabla4 {
+    background-color: var(--rosa-color);
+}
+
+.card-tabla5 {
+    background-color: var(--azul-color);
+}
+
+.card-body i {
+    font-size: 3rem;
+}
+
+@media (max-width: 576px) {
+    .card-custom {
+        width: 80%;
+        height: auto;
+    }
+}
+
+/* Estilos genéricos para las tablas */
+.cabecera-tabla {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.titulo-tabla {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--header-color);
+}
+
+.btn-agregar {
+    font-size: 1.4rem;
+    padding: 10px 20px;
+    text-decoration: none;
+}
+
+.caja-tabla {
+    max-width: 100%;
+    margin-top: 20px;
+}
+
+.tabla-datos {
+    background-color: white;
+}
+
+.tabla-datos th,
+.tabla-datos td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.thead-tabla th {
+    background-color: var(--header-color);
+    color: var(--text-color-blanco);
+}
+
+
+.btn-warning,
+.btn-danger .btn-info {
+    font-size: 1.5rem;
+}
+
+
+
+/* Para dispositivos móviles, ajustamos los botones de lista */
+.d-md-none .btn-link {
+    font-size: 1.6rem;
+    text-decoration: none;
+    color: var(--header-color);
+}
+
+.d-md-none .list-group-item {
+    font-size: 1.4rem;
+    background-color: #fff;
+}
+
+
+/* Estilo para dispotivos moviles */
+.card-tercero {
+    margin: 0 auto;
+    width: 90%;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: #fff;
+    transition: all 0.3s ease;
+}
+
+.card-tercero:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-tercero button {
+    background-color: transparent;
+    border: none;
+    font-size: 1.6rem;
+    font-weight: bold;
+    text-align: left;
+    width: 100%;
+    color: var(--header-color);
+    padding: 10px 0;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+
+
+.btn-nombre-tercero:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    text-decoration: none;
+}
+
+.card-tercero .list-group-item {
+    border: none;
+    padding-left: 15px;
+    padding-right: 15px;
+    font-size: 1.4rem;
+    background-color: #f9f9f9;
+}
+
+/* Estilos básicos para formularios */
+
+.box-footer .btn-success, .btn-danger{
+    font-size: 2rem;
+}
+.form-terceros {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-label {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: var(--header-color);
+}
+
+.form-control {
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 1.4rem;
+    border: 1px solid #ccc;
+}
+
+.box-footer {
+    text-align: right;
+}
+
+
+
+
+
+.titulo-tabla {
+    font-size: 2.5rem;
+    color: var(--header-color);
+    margin-bottom: 20px;
+}
+
+
+.acciones-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.centrar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.col-acciones {
+    width: 10rem;
+}
+
+
+.acciones-btn .btn-danger,
+.acciones-btn .btn-info,
+.acciones-btn .btn-warning {
+    height: 4rem;
+    width: 4rem;
+    padding: 15px;
+    font-size: 1.6rem;
+    padding: 10px 20px;
+}
+
+
+
+@media (max-width: 576px) {
+
+
+    .form-terceros {
+        width: 90%;
+    }
+
+
+    .pie-botones {
+        display: flex;
+        justify-content: center;
+        margin: auto;
+    }
+}
+
+.form-select {
+    width: 100%;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 1.4rem;
+    border: 1px solid #ccc;
+    font-family: inherit;
+    background-color: #fff;
+    color: #333;
+    line-height: 1.5;
+}
+
+

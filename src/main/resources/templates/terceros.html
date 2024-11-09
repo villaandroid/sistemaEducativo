@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Terceros</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="css/estilos.css">
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark header">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <h1>Sistema Académico</h1>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/index}">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/terceros}">Terceros</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/programas}">Programas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/pensums}">Pensum</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/asignaturas}">Asignaturas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/grupos}">Grupos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/aulas}">Aulas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="btn btn-warning btn-lg ms-3">Matricular</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <div class="cabecera-tabla mb-3 container">
+            <h1 class="titulo-tabla">Gestión de Terceros</h1>
+            <a th:href="@{/terceros/nuevo}" class="btn btn-primary btn-agregar">Agregar Tercero</a>
+        </div>
+
+        <div class="caja-tabla d-none d-lg-block">
+            <table class="table tabla-datos table-striped table-bordered">
+                <thead class="thead-tabla">
+                    <tr>
+                        <th>ID</th>
+                        <th>Tipo Documento</th>
+                        <th>Número Documento</th>
+                        <th>Nombres</th>
+                        <th>Apellidos</th>
+                        <th>Fecha Nacimiento</th>
+                        <th>Género</th>
+                        <th>Correo</th>
+                        <th>Tipo</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="tercero : ${terceros}">
+                        <td th:text="${tercero.terc_id}"></td>
+                        <td th:text="${tercero.terc_tipo_doc}"></td>
+                        <td th:text="${tercero.terc_nro_doc}"></td>
+                        <td th:text="${tercero.terc_nombres}"></td>
+                        <td th:text="${tercero.terc_apellidos}"></td>
+                        <td th:text="${#dates.format(tercero.terc_fecha_nac, 'dd/MM/yyyy')}"></td>
+                        <td th:text="${tercero.terc_genero}"></td>
+                        <td th:text="${tercero.terc_correo}"></td>
+                        <td th:text="${tercero.terc_tipo == '0' ? 'Estudiante' : 'Profesor'}"></td>
+                        <td>
+                            <div class="acciones-btn">
+                                <a th:href="@{/terceros/info/{id}(id=${tercero.terc_id})}" class="btn btn-info btn-sm me-2 centrar">
+                                    <i class="bi bi-eye-fill"></i>
+                                </a>
+                                <a th:href="@{/terceros/editar/{id}(id=${tercero.terc_id})}" class="btn btn-warning btn-sm me-2 centrar"><i class="bi bi-pencil-square"></i></a>
+                                <a th:href="@{/terceros/eliminar/{id}(id=${tercero.terc_id})}" class="btn btn-danger btn-sm centrar"><i class="bi bi-trash-fill"></i></a>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Vista móvil simplificada -->
+        <div class="caja-tabla d-lg-none container">
+            <table class="table table-striped table-bordered">
+                <thead class="thead-tabla">
+                    <tr>
+                        <th>Nombres</th>
+                        <th class="col-acciones">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="tercero : ${terceros}">
+                        <td>
+                            <button class="btn btn-nombre-tercero text-start" data-bs-toggle="collapse" th:data-bs-target="'#detallesTercero' + ${tercero.terc_id}">
+                                <span th:text="${tercero.terc_nombres} + ' ' + ${tercero.terc_apellidos}"></span>
+                            </button>
+                            <div th:id="'detallesTercero' + ${tercero.terc_id}" class="collapse mt-2">
+                                <ul class="list-group">
+                                    <li class="list-group-item"><strong>ID:</strong> <span th:text="${tercero.terc_id}"></span></li>
+                                    <li class="list-group-item"><strong>Tipo Documento:</strong> <span th:text="${tercero.terc_tipo_doc}"></span></li>
+                                    <li class="list-group-item"><strong>Número Documento:</strong> <span th:text="${tercero.terc_nro_doc}"></span></li>
+                                    <li class="list-group-item"><strong>Fecha Nacimiento:</strong> <span th:text="${#dates.format(tercero.terc_fecha_nac, 'dd/MM/yyyy')}"></span></li>
+                                    <li class="list-group-item"><strong>Género:</strong> <span th:text="${tercero.terc_genero}"></span></li>
+                                    <li class="list-group-item"><strong>Correo:</strong> <span th:text="${tercero.terc_correo}"></span></li>
+                                    <li class="list-group-item"><strong>Tipo:</strong> <span th:text="${tercero.terc_tipo == '0' ? 'Estudiante' : 'Profesor'}"></span></li>
+                                </ul>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="acciones-btn">
+                                <a th:href="@{/terceros/info/{id}(id=${tercero.terc_id})}" class="btn btn-info btn-sm me-2 centrar">
+                                    <i class="bi bi-eye-fill"></i>
+                                </a>
+                                <a th:href="@{/terceros/editar/{id}(id=${tercero.terc_id})}" class="btn btn-warning btn-sm me-2 centrar"><i class="bi bi-pencil-square"></i></a>
+                                <a th:href="@{/terceros/eliminar/{id}(id=${tercero.terc_id})}" class="btn btn-danger btn-sm me-2 centrar"><i class="bi bi-trash-fill"></i></a>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

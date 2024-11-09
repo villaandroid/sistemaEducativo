@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario Pensum</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="/css/estilos.css">
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark header">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <h1>Sistema Académico</h1>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" th:href="@{/index}">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/terceros}">Terceros</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/programas}">Programas</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/pensums}">Pensum</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/asignaturas}">Asignaturas</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/grupos}">Grupos</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/aulas}">Aulas</a></li>
+                    <li class="nav-item"><a href="#" class="btn btn-warning btn-lg ms-3">Matricular</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <div class="cabecera-tabla mb-3 container">
+            <h1 th:text="${accion} + ' Pensum'"></h1>
+        </div>
+
+        <form id="formPensum" th:action="@{/pensums}" th:object="${pensum}" method="post">
+            <div class="form-group mb-3">
+                <label for="pensId" class="form-label">ID</label>
+                <input type="number" id="pensId" th:field="*{pens_id}" class="form-control"
+                    th:readonly="${pensum.pens_id != null}" required>
+            </div>
+
+            <div class="form-group mb-3">
+                <label for="progId" class="form-label">Programa</label>
+                <select id="progId" th:field="*{prog_id}" class="form-select" required>
+                    <option value="" disabled selected>Seleccionar programa</option>
+                    <option th:each="programa : ${programas}" th:value="${programa.prog_id}"
+                        th:text="${programa.prog_programa}"></option>
+                </select>
+            </div>
+
+            <div class="form-group mb-3">
+                <label for="pensPeriodo" class="form-label">Periodo</label>
+                <input type="text" id="pensPeriodo" th:field="*{pens_periodo}" class="form-control" required
+                    maxlength="6" placeholder="Ejemplo: 202301">
+            </div>
+
+            <div class="box-footer mt-4 mb-3">
+                <button class="btn btn-success" type="submit">Guardar</button>
+                <a th:href="@{/pensums}" class="btn btn-danger">Cancelar</a>
+            </div>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
