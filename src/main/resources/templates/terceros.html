@@ -53,6 +53,8 @@
     </nav>
 
     <div class="container mt-5">
+
+
         <div class="cabecera-tabla mb-3 container">
             <h1 class="titulo-tabla">Gestión de Terceros</h1>
             <a th:href="@{/terceros/nuevo}" class="btn btn-primary btn-agregar">Agregar Tercero</a>
@@ -71,6 +73,7 @@
                         <th>Género</th>
                         <th>Correo</th>
                         <th>Tipo</th>
+                        <th>Estado</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -85,13 +88,21 @@
                         <td th:text="${tercero.terc_genero}"></td>
                         <td th:text="${tercero.terc_correo}"></td>
                         <td th:text="${tercero.terc_tipo == '0' ? 'Estudiante' : 'Profesor'}"></td>
+                        <td th:text="${tercero.terc_estado == '0' ? 'Activo' : 'Inactivo'}"></td>
                         <td>
                             <div class="acciones-btn">
-                                <a th:href="@{/terceros/info/{id}(id=${tercero.terc_id})}" class="btn btn-info btn-sm me-2 centrar">
+                                <a th:href="@{/terceros/info/{id}(id=${tercero.terc_id})}"
+                                    class="btn btn-info btn-sm me-2 centrar">
                                     <i class="bi bi-eye-fill"></i>
                                 </a>
-                                <a th:href="@{/terceros/editar/{id}(id=${tercero.terc_id})}" class="btn btn-warning btn-sm me-2 centrar"><i class="bi bi-pencil-square"></i></a>
-                                <a th:href="@{/terceros/eliminar/{id}(id=${tercero.terc_id})}" class="btn btn-danger btn-sm centrar"><i class="bi bi-trash-fill"></i></a>
+                                <a th:href="@{/terceros/editar/{id}(id=${tercero.terc_id})}"
+                                    class="btn btn-warning btn-sm me-2 centrar"><i class="bi bi-pencil-square"></i></a>
+
+                                <a th:href="@{/terceros/cambiarEstado/{id}(id=${tercero.terc_id})}"
+                                    class="btn btn-danger btn-sm centrar">
+                                    <i
+                                        th:classappend="${tercero.terc_estado == '0' ? 'bi bi-toggle-on' : 'bi bi-toggle-off'}"></i>
+                                </a>
                             </div>
                         </td>
                     </tr>
@@ -111,28 +122,48 @@
                 <tbody>
                     <tr th:each="tercero : ${terceros}">
                         <td>
-                            <button class="btn btn-nombre-tercero text-start" data-bs-toggle="collapse" th:data-bs-target="'#detallesTercero' + ${tercero.terc_id}">
+                            <button class="btn btn-nombre-tercero text-start" data-bs-toggle="collapse"
+                                th:data-bs-target="'#detallesTercero' + ${tercero.terc_id}">
                                 <span th:text="${tercero.terc_nombres} + ' ' + ${tercero.terc_apellidos}"></span>
                             </button>
                             <div th:id="'detallesTercero' + ${tercero.terc_id}" class="collapse mt-2">
                                 <ul class="list-group">
-                                    <li class="list-group-item"><strong>ID:</strong> <span th:text="${tercero.terc_id}"></span></li>
-                                    <li class="list-group-item"><strong>Tipo Documento:</strong> <span th:text="${tercero.terc_tipo_doc}"></span></li>
-                                    <li class="list-group-item"><strong>Número Documento:</strong> <span th:text="${tercero.terc_nro_doc}"></span></li>
-                                    <li class="list-group-item"><strong>Fecha Nacimiento:</strong> <span th:text="${#dates.format(tercero.terc_fecha_nac, 'dd/MM/yyyy')}"></span></li>
-                                    <li class="list-group-item"><strong>Género:</strong> <span th:text="${tercero.terc_genero}"></span></li>
-                                    <li class="list-group-item"><strong>Correo:</strong> <span th:text="${tercero.terc_correo}"></span></li>
-                                    <li class="list-group-item"><strong>Tipo:</strong> <span th:text="${tercero.terc_tipo == '0' ? 'Estudiante' : 'Profesor'}"></span></li>
+                                    <li class="list-group-item"><strong>ID:</strong> <span
+                                            th:text="${tercero.terc_id}"></span></li>
+                                    <li class="list-group-item"><strong>Tipo Documento:</strong> <span
+                                            th:text="${tercero.terc_tipo_doc}"></span></li>
+                                    <li class="list-group-item"><strong>Número Documento:</strong> <span
+                                            th:text="${tercero.terc_nro_doc}"></span></li>
+                                    <li class="list-group-item"><strong>Fecha Nacimiento:</strong> <span
+                                            th:text="${#dates.format(tercero.terc_fecha_nac, 'dd/MM/yyyy')}"></span>
+                                    </li>
+                                    <li class="list-group-item"><strong>Género:</strong> <span
+                                            th:text="${tercero.terc_genero}"></span></li>
+                                    <li class="list-group-item"><strong>Correo:</strong> <span
+                                            th:text="${tercero.terc_correo}"></span></li>
+                                    <li class="list-group-item"><strong>Tipo:</strong> <span
+                                            th:text="${tercero.terc_tipo == '0' ? 'Estudiante' : 'Profesor'}"></span>
+                                    </li>
+                                    <li class="list-group-item"><strong>Estado:</strong> <span
+                                            th:text="${tercero.terc_estado == '0' ? 'Activo' : 'Inactivo'}"></span></li>
                                 </ul>
                             </div>
                         </td>
                         <td>
                             <div class="acciones-btn">
-                                <a th:href="@{/terceros/info/{id}(id=${tercero.terc_id})}" class="btn btn-info btn-sm me-2 centrar">
+                                <a th:href="@{/terceros/info/{id}(id=${tercero.terc_id})}"
+                                    class="btn btn-info btn-sm me-2 centrar">
                                     <i class="bi bi-eye-fill"></i>
                                 </a>
-                                <a th:href="@{/terceros/editar/{id}(id=${tercero.terc_id})}" class="btn btn-warning btn-sm me-2 centrar"><i class="bi bi-pencil-square"></i></a>
-                                <a th:href="@{/terceros/eliminar/{id}(id=${tercero.terc_id})}" class="btn btn-danger btn-sm me-2 centrar"><i class="bi bi-trash-fill"></i></a>
+                                <a th:href="@{/terceros/editar/{id}(id=${tercero.terc_id})}"
+                                    class="btn btn-warning btn-sm me-2 centrar"><i class="bi bi-pencil-square"></i></a>
+
+                                <a th:href="@{/terceros/cambiarEstado/{id}(id=${tercero.terc_id})}"
+                                    class="btn btn-danger btn-sm centrar">
+                                    <i
+                                        th:classappend="${tercero.terc_estado == '0' ? 'bi bi-toggle-on' : 'bi bi-toggle-off'}"></i>
+                                </a>
+
                             </div>
                         </td>
                     </tr>

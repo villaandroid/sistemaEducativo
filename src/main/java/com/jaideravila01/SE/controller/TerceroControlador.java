@@ -30,7 +30,7 @@ public class TerceroControlador {
         return "terceros";
     }
 
-    // Mostrar formulario para agregar
+    // formulario para agregar
     @GetMapping("/terceros/nuevo")
     public String crearTerceroFormulario(Model modelo) {
         modelo.addAttribute("tercero", new Tercero());
@@ -38,14 +38,14 @@ public class TerceroControlador {
         return "form_terceros";
     }
 
-    // Guardar nuevo tercero
+    // Guardar
     @PostMapping("/terceros")
     public String guardarTercero(@ModelAttribute("tercero") Tercero tercero) {
         servicio.guardarTercero(tercero);
         return "redirect:/terceros";
     }
 
-    // Mostrar formulario para editar
+    // formulario para editar
     @GetMapping("/terceros/editar/{id}")
     public String mostrarFormularioDeEditar(@PathVariable Long id, Model modelo) {
         Tercero tercero = servicio.obtenerTerceroPorId(id);
@@ -75,7 +75,7 @@ public class TerceroControlador {
         return "redirect:/terceros";
     }
 
-    // Eliminar tercero
+    // Eliminar
     @GetMapping("/terceros/eliminar/{id}")
     public String eliminarTercero(@PathVariable Long id) {
         servicio.eliminarTercero(id);
@@ -88,4 +88,22 @@ public class TerceroControlador {
         formatoFecha.setLenient(false);
         binder.registerCustomEditor(Date.class, new CustomDateEditor(formatoFecha, true));
     }
+
+    @GetMapping("/terceros/cambiarEstado/{id}")
+    public String cambiarEstadoTercero(@PathVariable Long id, Model modelo) {
+        Tercero tercero = servicio.obtenerTerceroPorId(id);
+
+        if (tercero != null) {
+        
+            if ("0".equals(tercero.getTerc_estado())) {
+                tercero.setTerc_estado("1"); 
+            } else {
+                tercero.setTerc_estado("0"); 
+            }
+            servicio.guardarTercero(tercero);
+        }
+
+        return "redirect:/terceros";
+    }
+
 }

@@ -93,7 +93,5 @@ public class GrupoControlador {
         grupoServicio.eliminarGrupo(id);
         return "redirect:/grupos";
     }
-
-
-    
+ 
 }

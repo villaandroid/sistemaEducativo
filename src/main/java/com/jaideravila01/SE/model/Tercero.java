@@ -40,11 +40,14 @@ public class Tercero {
     @Column(name = "terc_tipo", nullable = false, length = 1)
     private String terc_tipo;
 
+    @Column(name = "terc_estado", nullable = false, length = 1)
+    private String terc_estado;
+
     public Tercero() {
     }
 
     public Tercero(String terc_tipo_doc, String terc_nro_doc, String terc_nombres, String terc_apellidos,
-            Date terc_fecha_nac, String terc_genero, String terc_correo, String terc_tipo) {
+            Date terc_fecha_nac, String terc_genero, String terc_correo, String terc_tipo, String terc_estado) {
         this.terc_tipo_doc = terc_tipo_doc;
         this.terc_nro_doc = terc_nro_doc;
         this.terc_nombres = terc_nombres;
@@ -53,6 +56,7 @@ public class Tercero {
         this.terc_genero = terc_genero;
         this.terc_correo = terc_correo;
         this.terc_tipo = terc_tipo;
+        this.terc_estado = terc_estado;
     }
 
     public Long getTerc_id() {
@@ -104,8 +108,16 @@ public class Tercero {
     }
 
     public String getTerc_genero() {
+        String mensaje = "";
+        if ("M".equalsIgnoreCase(this.terc_genero)) {
+            mensaje = "MASCULINO";
+        } else if ("F".equalsIgnoreCase(this.terc_genero)) {
+            mensaje = "FEMENINO";
+        } else {
+            mensaje = "OTR@";
+        }
 
-        return terc_genero;
+        return mensaje;
     }
 
     public void setTerc_genero(String terc_genero) {
@@ -127,4 +139,14 @@ public class Tercero {
     public void setTerc_tipo(String terc_tipo) {
         this.terc_tipo = terc_tipo;
     }
+
+    public String getTerc_estado() {
+        return terc_estado;
+    }
+
+    public void setTerc_estado(String terc_estado) {
+        this.terc_estado = terc_estado;
+    }
+
+    
 }

@@ -24,7 +24,6 @@ public class AsignaturaControlador {
         return "asignaturas";
     }
 
-    // Mostrar formulario para agregar
     @GetMapping("/asignaturas/nuevo")
     public String crearAsignaturaFormulario(Model modelo) {
         System.out.println("Creando formulario para nueva asignatura");
@@ -33,7 +32,7 @@ public class AsignaturaControlador {
         return "form_asignatura";
     }
 
-    // Guardar nueva asignatura
+    // guardar
     @PostMapping("/asignaturas")
     public String guardarAsignatura(@ModelAttribute("asignatura") Asignatura asignatura) {
         servicio.guardarAsignatura(asignatura);

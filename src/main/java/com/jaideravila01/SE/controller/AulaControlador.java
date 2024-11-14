@@ -16,7 +16,7 @@ public class AulaControlador {
     @Autowired
     private AulaServicio servicio;
 
-    // Listar aulas
+    // Listar
     @GetMapping("/aulas")
     public String listarAulas(Model modelo) {
         modelo.addAttribute("aulas", servicio.listarAulas());
@@ -24,7 +24,7 @@ public class AulaControlador {
         return "aulas";
     }
 
-    // Mostrar formulario para agregar nueva aula
+    // mostrar formulario
     @GetMapping("/aulas/nueva")
     public String crearAulaFormulario(Model modelo) {
         modelo.addAttribute("aula", new Aula());
@@ -32,14 +32,14 @@ public class AulaControlador {
         return "form_aula";
     }
 
-    // Guardar nueva aula
+    // Guardar 
     @PostMapping("/aulas")
     public String guardarAula(@ModelAttribute("aula") Aula aula) {
         servicio.guardarAula(aula);
         return "redirect:/aulas";
     }
 
-    // Mostrar formulario para editar una aula existente
+    //editar existente
     @GetMapping("/aulas/editar/{id}")
     public String mostrarFormularioEditar(@PathVariable Long id, Model modelo) {
         Aula aula = servicio.obtenerAulaPorId(id);
@@ -48,7 +48,7 @@ public class AulaControlador {
         return "form_aula";
     }
 
-    // Actualizar aula existente usando el constructor
+    // Actualizar 
     @PostMapping("/aulas/{id}")
     public String actualizarAula(@PathVariable Long id, @ModelAttribute("aula") Aula aula) {
         Aula aulaActualizada = new Aula(
@@ -56,13 +56,13 @@ public class AulaControlador {
             aula.getAula(),
             aula.getDescripcion()
         );
-        aulaActualizada.setId(id); // Configurar el ID existente
+        aulaActualizada.setId(id); //obtener id existente
 
         servicio.guardarAula(aulaActualizada);
         return "redirect:/aulas";
     }
 
-    // Eliminar aula
+    // Eliminar
     @GetMapping("/aulas/eliminar/{id}")
     public String eliminarAula(@PathVariable Long id) {
         servicio.eliminarAula(id);
