@@ -88,7 +88,11 @@ public class Tercero {
     }
 
     public void setTerc_nombres(String terc_nombres) {
-        this.terc_nombres = terc_nombres;
+        if (terc_nombres != null) {
+            this.terc_nombres = terc_nombres.toUpperCase();
+        } else {
+            this.terc_nombres = null;
+        }
     }
 
     public String getTerc_apellidos() {
@@ -96,9 +100,12 @@ public class Tercero {
     }
 
     public void setTerc_apellidos(String terc_apellidos) {
-        this.terc_apellidos = terc_apellidos;
+        if (terc_apellidos != null) {
+            this.terc_apellidos = terc_apellidos.toUpperCase();
+        } else {
+            this.terc_apellidos = null;
+        }
     }
-
     public Date getTerc_fecha_nac() {
         return terc_fecha_nac;
     }
@@ -108,16 +115,8 @@ public class Tercero {
     }
 
     public String getTerc_genero() {
-        String mensaje = "";
-        if ("M".equalsIgnoreCase(this.terc_genero)) {
-            mensaje = "MASCULINO";
-        } else if ("F".equalsIgnoreCase(this.terc_genero)) {
-            mensaje = "FEMENINO";
-        } else {
-            mensaje = "OTR@";
-        }
-
-        return mensaje;
+    
+        return terc_genero;
     }
 
     public void setTerc_genero(String terc_genero) {

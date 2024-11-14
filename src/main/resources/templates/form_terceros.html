@@ -54,76 +54,91 @@
     </nav>
 
     <div class="container mt-5">
+
+
+        <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+        
         <div class="cabecera-tabla mb-3 container">
             <h1 th:text="${accion} + ' Tercero'"></h1>
         </div>
 
-        <form th:action="${accion == 'Editar' ? '/terceros/' + tercero.terc_id : '/terceros'}" th:object="${tercero}"
-            method="post">
+        <form th:action="${accion == 'Editar' ? '/terceros/' + tercero.terc_id : '/terceros'}" th:object="${tercero}" method="post">
+            <div class="row">
+                <div class="col-md-6 form-group mb-3">
+                    <label for="terc_nombres" class="form-label">Nombres</label>
+                    <input type="text" id="terc_nombres" th:field="*{terc_nombres}" class="form-control"
+                        placeholder="Ingresar nombres" required>
+                </div>
 
+                <div class="col-md-6 form-group mb-3">
+                    <label for="terc_apellidos" class="form-label">Apellidos</label>
+                    <input type="text" id="terc_apellidos" th:field="*{terc_apellidos}" class="form-control"
+                        placeholder="Ingresar apellidos" required>
+                </div>
 
+                <div class="col-md-6 form-group mb-3">
+                    <label for="terc_fecha_nac" class="form-label">Fecha de Nacimiento</label>
+                    <input type="date" id="terc_fecha_nac" th:field="*{terc_fecha_nac}" class="form-control" required>
+                </div>
 
-            <div class="form-group mb-3">
-                <label for="terc_nombres" class="form-label">Nombres</label>
-                <input type="text" id="terc_nombres" th:field="*{terc_nombres}" class="form-control"
-                    placeholder="Ingresar nombres" required>
-            </div>
+                <div class="col-md-6 form-group mb-3">
+                    <label for="terc_genero" class="form-label">Género</label>
+                    <select id="terc_genero" th:field="*{terc_genero}" class="form-control" required>
+                        <option value="">Seleccionar género</option>
+                        <option value="M">Masculino</option>
+                        <option value="F">Femenino</option>
+                        <option value="O">Otro</option>
+                    </select>
+                </div>
 
-            <div class="form-group mb-3">
-                <label for="terc_apellidos" class="form-label">Apellidos</label>
-                <input type="text" id="terc_apellidos" th:field="*{terc_apellidos}" class="form-control"
-                    placeholder="Ingresar apellidos" required>
-            </div>
+                <div class="col-md-6 form-group mb-3">
+                    <label for="terc_correo" class="form-label">Correo</label>
+                    <input type="email" id="terc_correo" th:field="*{terc_correo}" class="form-control"
+                        placeholder="Ingresar correo" required>
+                </div>
 
-            <div class="form-group mb-3">
-                <label for="terc_fecha_nac" class="form-label">Fecha de Nacimiento</label>
-                <input type="date" id="terc_fecha_nac" th:field="*{terc_fecha_nac}" class="form-control" required>
-            </div>
+                <div class="col-md-6 form-group mb-3">
+                    <label for="terc_tipo_doc" class="form-label">Tipo de Documento</label>
+                    <select id="terc_tipo_doc" th:field="*{terc_tipo_doc}" class="form-control" required>
+                        <option value="">Seleccionar tipo de documento</option>
+                        <option value="CC">Cédula de Ciudadanía</option>
+                        <option value="TI">Tarjeta de Identidad</option>
+                        <option value="OT">Otro</option>
+                    </select>
+                </div>
 
-            <div class="form-group mb-3">
-                <label for="terc_genero" class="form-label">Género</label>
-                <select id="terc_genero" th:field="*{terc_genero}" class="form-control" required>
-                    <option value="">Seleccionar género</option>
-                    <option value="M">Masculino</option>
-                    <option value="F">Femenino</option>
-                    <option value="O">Otro</option>
-                </select>
-            </div>
+                <div class="col-md-6 form-group mb-3">
+                    <label for="terc_nro_doc" class="form-label">Número de Documento</label>
+                    <input type="text" id="terc_nro_doc" th:field="*{terc_nro_doc}" class="form-control"
+                           placeholder="Ingresar número de documento" required
+                           th:attr="autofocus=${error}">
+                </div>
+                
 
-            <div class="form-group mb-3">
-                <label for="terc_correo" class="form-label">Correo</label>
-                <input type="email" id="terc_correo" th:field="*{terc_correo}" class="form-control"
-                    placeholder="Ingresar correo" required>
-            </div>
+                <div class="col-md-6 form-group mb-3">
+                    <label for="terc_tipo" class="form-label">Tipo</label>
+                    <select id="terc_tipo" th:field="*{terc_tipo}" class="form-control" required>
+                        <option value="0">Estudiante</option>
+                        <option value="1">Profesor</option>
+                    </select>
+                </div>
 
-            <div class="form-group mb-3">
-                <label for="terc_tipo_doc" class="form-label">Tipo de Documento</label>
-                <select id="terc_tipo_doc" th:field="*{terc_tipo_doc}" class="form-control" required>
-                    <option value="">Seleccionar tipo de documento</option>
-                    <option value="CC">Cédula de Ciudadanía</option>
-                    <option value="TI">Tarjeta de Identidad</option>
-                    <option value="OT">Otro</option>
-                </select>
-            </div>
+                <div class="col-md-6 form-group mb-3">
+                    <label for="terc_estado" class="form-label">Estado</label>
+                    <select id="terc_estado" th:field="*{terc_estado}" class="form-control" required>
+                        <option value="0">Activo</option>
+                        <option value="1">Inactivo</option>
+                    </select>
+                </div>
 
-            <div class="form-group mb-3">
-                <label for="terc_nro_doc" class="form-label">Número de Documento</label>
-                <input type="text" id="terc_nro_doc" th:field="*{terc_nro_doc}" class="form-control"
-                    placeholder="Ingresar número de documento" required>
-            </div>
-
-            <div class="form-group mb-3">
-                <label for="terc_tipo" class="form-label">Tipo de Tercero</label>
-                <select id="terc_tipo" th:field="*{terc_tipo}" class="form-control" required>
-                    <option value="0">Estudiante</option>
-                    <option value="1">Profesor</option>
-                </select>
             </div>
 
             <div class="box-footer mt-4 mb-3">
                 <button class="btn btn-success btn-lg" type="submit" th:text="${accion}"></button>
                 <a th:href="@{/terceros}" class="btn btn-danger btn-lg">Cancelar</a>
             </div>
+
+            
         </form>
 
     </div>

@@ -5,6 +5,7 @@ import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
@@ -40,9 +41,16 @@ public class TerceroControlador {
 
     // Guardar
     @PostMapping("/terceros")
-    public String guardarTercero(@ModelAttribute("tercero") Tercero tercero) {
-        servicio.guardarTercero(tercero);
-        return "redirect:/terceros";
+    public String guardarTercero(@ModelAttribute("tercero") Tercero tercero, Model modelo) {
+        try {
+            servicio.guardarTercero(tercero);
+            return "redirect:/terceros";
+        } catch (DataIntegrityViolationException e) {
+            modelo.addAttribute("error", "El número de documento ya existe. Por favor, ingrese uno diferente.");
+            modelo.addAttribute("tercero", tercero); // Retener datos del formulario
+            modelo.addAttribute("accion", "Agregar");
+            return "form_terceros";
+        }
     }
 
     // formulario para editar
@@ -59,17 +67,20 @@ public class TerceroControlador {
         Tercero terceroExistente = servicio.obtenerTerceroPorId(id);
 
         if (terceroExistente != null) {
+            Tercero terceroActualizado = new Tercero(
+                    tercero.getTerc_tipo_doc(),
+                    tercero.getTerc_nro_doc(),
+                    tercero.getTerc_nombres(),
+                    tercero.getTerc_apellidos(),
+                    tercero.getTerc_fecha_nac(),
+                    tercero.getTerc_genero(),
+                    tercero.getTerc_correo(),
+                    tercero.getTerc_tipo(),
+                    tercero.getTerc_estado());
 
-            terceroExistente.setTerc_tipo_doc(tercero.getTerc_tipo_doc());
-            terceroExistente.setTerc_nro_doc(tercero.getTerc_nro_doc());
-            terceroExistente.setTerc_nombres(tercero.getTerc_nombres());
-            terceroExistente.setTerc_apellidos(tercero.getTerc_apellidos());
-            terceroExistente.setTerc_fecha_nac(tercero.getTerc_fecha_nac());
-            terceroExistente.setTerc_genero(tercero.getTerc_genero());
-            terceroExistente.setTerc_correo(tercero.getTerc_correo());
-            terceroExistente.setTerc_tipo(tercero.getTerc_tipo());
+            terceroActualizado.setTerc_id(terceroExistente.getTerc_id());
 
-            servicio.guardarTercero(terceroExistente);
+            servicio.guardarTercero(terceroActualizado);
         }
 
         return "redirect:/terceros";
@@ -94,11 +105,11 @@ public class TerceroControlador {
         Tercero tercero = servicio.obtenerTerceroPorId(id);
 
         if (tercero != null) {
-        
+
             if ("0".equals(tercero.getTerc_estado())) {
-                tercero.setTerc_estado("1"); 
+                tercero.setTerc_estado("1");
             } else {
-                tercero.setTerc_estado("0"); 
+                tercero.setTerc_estado("0");
             }
             servicio.guardarTercero(tercero);
         }
